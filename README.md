@@ -3,8 +3,8 @@ Workshop , develop an API using graphql and gnx (a tool from SimtLix)
 
 Needed:
 
-**nvm**
->npm i nvm
+**nvm**  
+> npm i nvm
 
 **run-rs**
 >npm i run-rs
