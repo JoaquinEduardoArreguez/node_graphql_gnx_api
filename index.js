@@ -1,28 +1,35 @@
 const express = require("express");
-const app = express();
-
+// eslint-disable-next-line
 const gnx = require("@simtlix/gnx");
+const app = express();
 
 const graphqlHTTP = require("express-graphql");
 
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb://localhost:27017,localhost:27018,localhost:27019/example",
-  { replicaSet: "rs" }
-);
+try {
+  mongoose.connect(
+    "mongodb://localhost:27017,localhost:27018,localhost:27019/example",
+    { replicaSet: "rs" }
+  );
+  mongoose.connection.once("open", () => {
+    console.log("connected to database");
+  });
+} catch (error) {
+  logmyerrors("Error connecting to DB");
+}
 
-mongoose.connection.once("open", () => {
-  console.log("Connected to DataBase");
-});
-
-const types = require("./types");
-const schema = gnx.createSchema(types);
+const types = require("./dataTypes");
+const includedTypes = Object.values(types);
+const schema = gnx.createSchema(includedTypes, includedTypes);
 
 app.use(
   "/graphql",
   graphqlHTTP({
+    // Directing express-graphql to use this schema to map out the graph
     schema,
+    /* Directing express-graphql to use graphiql when goto '/graphql' address in the browser
+    which provides an interface to make GraphQl queries */
     graphiql: true,
   })
 );
