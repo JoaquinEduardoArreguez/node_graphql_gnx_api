@@ -1,7 +1,7 @@
 const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
-const Author = require("../models/author").Author;
-const Book = require("../models/book").Book;
+const Author = require("../models/authorModel").Author;
+const Book = require("../models/bookModel").Book;
 
 const {
   GraphQLString,
@@ -16,7 +16,11 @@ const AuthorType = new GraphQLObjectType({
   description: "Represent authors",
   fields: () => ({
     id: { type: GraphQLID },
+
     name: { type: GraphQLString },
+
+
+    
     books: {
       type: new GraphQLList(BookType),
       extensions: {
@@ -29,6 +33,10 @@ const AuthorType = new GraphQLObjectType({
         return Book.find({ AuthorID: parent.id });
       },
     },
+
+
+
+
   }),
 });
 
@@ -36,4 +44,4 @@ gnx.connect(Author, AuthorType, "author", "authors");
 
 module.exports = AuthorType;
 
-const BookType = require("./book");
+const BookType = require("./bookType");

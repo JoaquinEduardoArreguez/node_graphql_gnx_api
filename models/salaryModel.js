@@ -20,4 +20,4 @@ if (!Salary.collection.collectionName) {
   Salary.createCollection();
 }
 
-module.exports = { salaryFields, Salary };
+module.exports = { Salary, salaryFields };

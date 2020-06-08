@@ -6,10 +6,10 @@ const Schema = mongoose.Schema;
  */
 
 const titleFields = {
-  empId:Schema.Types.ObjectId,
-  title:String,
-  from_date:Date,
-  to_date:Date,
+  empId: Schema.Types.ObjectId,
+  title: String,
+  from_date: Date,
+  to_date: Date,
 };
 
 const titleSchema = new Schema(titleFields);
@@ -20,4 +20,4 @@ if (!Title.collection.collection) {
   Title.createCollection();
 }
 
-module.exports = { titleFields, Title };
+module.exports = { Title, titleFields };

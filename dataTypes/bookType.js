@@ -1,8 +1,8 @@
 const graphql = require('graphql');
 const gnx = require('@simtlix/gnx');
 
-const Author = require('../models/author').Author;
-const BookModel = require('../models/book').Book;
+const Author = require('../models/authorModel').Author;
+const BookModel = require('../models/bookModel').Book;
 
 const {
     GraphQLObjectType, GraphQLString,
@@ -33,4 +33,4 @@ gnx.connect(BookModel, BookType, 'book', 'books');
 
 module.exports = BookType;
 
-const AuthorType = require('./author');
+const AuthorType = require('./authorType');

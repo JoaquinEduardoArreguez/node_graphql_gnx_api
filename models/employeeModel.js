@@ -22,4 +22,4 @@ if (!Employee.collection.collection) {
   Employee.createCollection();
 }
 
-module.exports = { employeeFields, Employee };
+module.exports = { Employee, employeeFields };
