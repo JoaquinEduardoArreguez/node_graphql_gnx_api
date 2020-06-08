@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
  */
 
 const departmentFields = {
-  name: String,
+  name: mongoose.Schema.Types.String,
 };
 
 const departmentSchema = new Schema(departmentFields);

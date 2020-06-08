@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const authorFields = {
-  name: String,
+  name: mongoose.Schema.Types.String,
 };
 
 const authorSchema = new Schema(authorFields);

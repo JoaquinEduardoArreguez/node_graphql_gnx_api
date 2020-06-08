@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const bookFields = {
-  name: String,
+  name: mongoose.Schema.Types.String,
   AuthorID: Schema.Types.ObjectId,
 };
 

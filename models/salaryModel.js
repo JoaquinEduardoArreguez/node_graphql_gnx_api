@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 
 const salaryFields = {
   empId: Schema.Types.ObjectId,
-  salary: Number,
+  salary: mongoose.Schema.Types.Number,
   from_date: mongoose.Schema.Types.Date,
   to_date: mongoose.Schema.Types.Date,
 };
