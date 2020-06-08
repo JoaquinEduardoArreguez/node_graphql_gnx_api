@@ -18,8 +18,6 @@ const AuthorType = new GraphQLObjectType({
     id: { type: GraphQLID },
 
     name: { type: GraphQLString },
-
-
     
     books: {
       type: new GraphQLList(BookType),

@@ -12,6 +12,9 @@ Needed:
 **mongo-express**
 >npm i mongo-express
 
+**graphql-iso-date**
+>npm install --save graphql-iso-date
+
 **Nodemon** *(as development dependency)*
 >npm i --save-dev nodemon  
 

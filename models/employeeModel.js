@@ -6,12 +6,12 @@ const Schema = mongoose.Schema;
  */
 
 const employeeFields = {
-  dni: Number,
-  birth_date: Date,
-  firsta_name: String,
-  last_name: String,
-  gender: String,
-  hire_date: Date,
+  dni: mongoose.Schema.Types.Number,
+  birth_date: mongoose.Schema.Types.Date,
+  first_name: mongoose.Schema.Types.String,
+  last_name: mongoose.Schema.Types.String,
+  gender: mongoose.Schema.Types.String,
+  hire_date: mongoose.Schema.Types.Date,
 };
 
 const employeeSchema = new Schema(employeeFields);
