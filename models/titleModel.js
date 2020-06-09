@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
  */
 
 const titleFields = {
-  empId: Schema.Types.ObjectId,
+  employee_id: Schema.Types.ObjectId,
   title: mongoose.Schema.Types.String,
   from_date: mongoose.Schema.Types.Date,
   to_date: mongoose.Schema.Types.Date,

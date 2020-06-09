@@ -34,7 +34,7 @@ const employeeType = new GraphQLObjectType({
     last_name: { type: GraphQLNonNull(GraphQLString) },
     gender: { type: GraphQLNonNull(GraphQLString) },
     birth_date: { type: GraphQLNonNull(GraphQLDate) },
-    hire_date: { type: GraphQLNonNull(GraphQLDate)},
+    hire_date: { type: GraphQLNonNull(GraphQLDate) },
   }),
 });
 
