@@ -6,14 +6,11 @@ const Schema = mongoose.Schema;
  */
 
 const employeeFields = {
-  dni: {
-    type: mongoose.Schema.Types.Number,
-    unique:true,
-  },
-  birth_date: mongoose.Schema.Types.Date,
+  dni: mongoose.Schema.Types.Number,
   first_name: mongoose.Schema.Types.String,
   last_name: mongoose.Schema.Types.String,
   gender: mongoose.Schema.Types.String,
+  birth_date: mongoose.Schema.Types.Date,
   hire_date: mongoose.Schema.Types.Date,
 };
 

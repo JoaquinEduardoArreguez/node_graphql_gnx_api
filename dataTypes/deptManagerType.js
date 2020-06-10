@@ -3,9 +3,11 @@ const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
 
 // MongoDB model imports
+const departmentModel = require("../models/departmentModel").Department;
 const deptManagerModel = require("../models/deptManagerModel").DeptManager;
 
 // GraphQL type imports
+const departmentType = require("./departmentType");
 
 // GraphQL library imports
 const {
@@ -20,6 +22,37 @@ const {
 const { GraphQLDate } = gqlDate;
 
 /**
- * Employee must have dni, birth_date, firsta_name,
- * last_name, gender, hire_date
+ * Dept_manager must have employee_id, department_id, from_date, to_date
  */
+
+const deptManagerType = new GraphQLObjectType({
+  name: "DepartmentManager",
+  description: "Represents a department manager",
+  fields: () => ({
+    id: { type: GraphQLNonNull(GraphQLID) },
+    employee_id: { type: GraphQLNonNull(GraphQLID) },
+    department_id: { type: GraphQLNonNull(GraphQLID) },
+    from_date: { type: GraphQLNonNull(GraphQLDate) },
+    to_date: { type: GraphQLNonNull(GraphQLDate) },
+    department: {
+      type: departmentType,
+      extensions: {
+        relation: {
+          connectionField: "department_id",
+        },
+      },
+      resolve(parent, args) {
+        return departmentModel.findById(parent.department_id);
+      },
+    },
+  }),
+});
+
+gnx.connect(
+  deptManagerModel,
+  deptManagerType,
+  "DepartmentManager",
+  "DepartmentManagers"
+);
+
+module.exports = deptManagerType;

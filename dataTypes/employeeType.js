@@ -38,6 +38,6 @@ const employeeType = new GraphQLObjectType({
   }),
 });
 
-gnx.connect(employeeModel, employeeType, "employee", "employees");
+gnx.connect(employeeModel, employeeType, "Employee", "Employees");
 
 module.exports = employeeType;

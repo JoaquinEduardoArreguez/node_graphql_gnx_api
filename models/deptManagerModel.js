@@ -6,8 +6,8 @@ const Schema = mongoose.Schema;
  */
 
 const deptManagerFields = {
-  empId: Schema.Types.ObjectId,
-  deptId: Schema.Types.ObjectId,
+  employee_id: Schema.Types.ObjectId,
+  department_id: Schema.Types.ObjectId,
   from_date: mongoose.Schema.Types.Date,
   to_date: mongoose.Schema.Types.Date,
 };
