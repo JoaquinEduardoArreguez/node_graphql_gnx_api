@@ -6,6 +6,8 @@ const gqlDate = require("graphql-iso-date");
 const deptEmployeeModel = require("../models/deptEmployeeModel").DeptEmployee;
 
 // GraphQL type imports
+const employeeType = require("./employeeType");
+const departmentType = require("./departmentType");
 
 // GraphQL library imports
 const {
@@ -33,6 +35,32 @@ const deptEmployeeType = new GraphQLObjectType({
     department_id: { type: GraphQLNonNull(GraphQLID) },
     from_date: { type: GraphQLNonNull(GraphQLDate) },
     to_date: { type: GraphQLNonNull(GraphQLDate) },
+
+    employee: {
+      type: employeeType,
+      extensions: {
+        relation: {
+          connectionField: "employee_id",
+          embedded: false,
+        },
+      },
+      resolve(parent, args) {
+        return gnx.getModel(employeeType).findById(parent.employee_id);
+      },
+    },
+
+    department: {
+      type: departmentType,
+      extensions: {
+        relation: {
+          connectionField: "department_id",
+          embedded: false,
+        },
+      },
+      resolve(parent, args) {
+        return gnx.getModel(departmentType).findById(parent.department_id);
+      },
+    },
   }),
 });
 
