@@ -16,7 +16,7 @@ const salarySchema = new Schema(salaryFields);
 
 const Salary = mongoose.model("Salary", salarySchema);
 
-if (!Salary.collection.collectionName) {
+if (!Salary.collection.collection) {
   Salary.createCollection();
 }
 

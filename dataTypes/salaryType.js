@@ -4,8 +4,10 @@ const gqlDate = require("graphql-iso-date");
 
 // MongoDB model imports
 const salaryModel = require("../models/salaryModel").Salary;
+const employeeModel=require("../models/employeeModel").Employee;
 
 // GraphQL type imports
+const employeeType = require("./employeeType");
 
 // GraphQL library imports
 const {
@@ -32,6 +34,20 @@ const salaryType = new GraphQLObjectType({
     salary: { type: GraphQLNonNull(GraphQLInt) },
     from_date: { type: GraphQLNonNull(GraphQLDate) },
     to_date: { type: GraphQLNonNull(GraphQLDate) },
+
+    employee: {
+      type: employeeType,
+      extensions: {
+        relation: {
+          connectionField: "employee_id",
+          embedded: false,
+        },
+      },
+      resolve(parent, args) {
+        return employeeModel.findById(parent.employee_id);
+      },
+    },
+
   }),
 });
 
