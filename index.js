@@ -7,6 +7,8 @@ const graphqlHTTP = require("express-graphql");
 
 const mongoose = require("mongoose");
 
+mongoose.plugin(require('./plugins/auditablePluginSchema'));
+
 try {
   mongoose.connect(
     "mongodb://localhost:27017,localhost:27018,localhost:27019/example",
@@ -21,7 +23,7 @@ try {
 
 const types = require("./dataTypes");
 const includedTypes = Object.values(types);
-const schema = gnx.createSchema(includedTypes, includedTypes);
+const schema = gnx.createSchema(includedTypes,includedTypes);
 
 app.use(
   "/graphql",

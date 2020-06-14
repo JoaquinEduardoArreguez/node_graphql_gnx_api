@@ -19,8 +19,6 @@ const BookType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
 
-
-
     author: {
       type: AuthorType,
       extensions: {
@@ -32,8 +30,6 @@ const BookType = new GraphQLObjectType({
         return Author.findById(parent.AuthorID);
       },
     },
-
-    
   }),
 });
 

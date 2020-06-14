@@ -1,6 +1,9 @@
 const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
+const {
+  AuditableObjectFields,
+} = require("./extended_types/auditableGraphQLObjectType");
 
 // MongoDB model imports
 const deptEmployeeModel = require("../models/deptEmployeeModel").DeptEmployee;

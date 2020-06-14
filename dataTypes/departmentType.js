@@ -8,7 +8,7 @@ const deptManagerModel = require("../models/deptManagerModel").DeptManager;
 
 // GraphQL type imports
 //const deptManagerType = require("./deptManagerType");
-const deptManagerType = require("./deptManagerType");
+//const deptManagerType = require("./deptManagerType");
 
 // GraphQL library imports
 const {
