@@ -15,7 +15,7 @@ const {
 const BookType = new GraphQLObjectType({
   name: "BookType",
   description: "Represent books",
-  fields: () => ({
+  fields:() =>Object.assign(AuditableObjectFields,{
     id: { type: GraphQLID },
     name: { type: GraphQLString },
 

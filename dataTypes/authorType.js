@@ -14,7 +14,7 @@ const {
 const AuthorType = new GraphQLObjectType({
   name: "AuthorType",
   description: "Represent authors",
-  fields: () => ({
+  fields:() =>Object.assign(AuditableObjectFields,{
     id: { type: GraphQLID },
 
     name: { type: GraphQLString },

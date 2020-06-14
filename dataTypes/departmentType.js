@@ -1,6 +1,9 @@
 const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
+const {
+  AuditableObjectFields
+} = require("./extended_types/auditableGraphQLObjectType");
 
 // MongoDB model imports
 const departmentModel = require("../models/departmentModel").Department;
@@ -29,7 +32,7 @@ const { GraphQLDate } = gqlDate;
 const departmentType = new GraphQLObjectType({
   name: "Department",
   description: "Represents a department",
-  fields: () => ({
+  fields:() =>Object.assign(AuditableObjectFields,{
     id: { type: GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLNonNull(GraphQLString) },
   }),
