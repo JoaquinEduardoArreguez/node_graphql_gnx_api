@@ -1,9 +1,8 @@
 const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
-const {
-  AuditableObjectFields
-} = require("./extended_types/auditableGraphQLObjectType");
+const genderTypeEnum = require('./enums/gender.enum');
+const {AuditableObjectFields} = require("./extended_types/auditableGraphQLObjectType");
 
 // MongoDB model imports
 const employeeModel = require("../models/employeeModel").Employee;
@@ -30,15 +29,16 @@ const { GraphQLDate } = gqlDate;
 const employeeType = new GraphQLObjectType({
   name: "Employee",
   description: "Represents an employee",
-  fields:() =>Object.assign(AuditableObjectFields,{
-    id: { type: GraphQLNonNull(GraphQLID) },
-    dni: { type: GraphQLNonNull(GraphQLInt) },
-    first_name: { type: GraphQLNonNull(GraphQLString) },
-    last_name: { type: GraphQLNonNull(GraphQLString) },
-    gender: { type: GraphQLNonNull(GraphQLString) },
-    birth_date: { type: GraphQLNonNull(GraphQLDate) },
-    hire_date: { type: GraphQLNonNull(GraphQLDate) },
-  }),
+  fields: () =>
+    Object.assign(AuditableObjectFields, {
+      id: { type: GraphQLNonNull(GraphQLID) },
+      dni: { type: GraphQLNonNull(GraphQLInt) },
+      first_name: { type: GraphQLNonNull(GraphQLString) },
+      last_name: { type: GraphQLNonNull(GraphQLString) },
+      gender: { type: GraphQLNonNull(genderTypeEnum) },
+      birth_date: { type: GraphQLNonNull(GraphQLDate) },
+      hire_date: { type: GraphQLNonNull(GraphQLDate) },
+    }),
 });
 
 gnx.connect(employeeModel, employeeType, "Employee", "Employees");

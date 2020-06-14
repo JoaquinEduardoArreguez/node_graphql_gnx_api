@@ -2,16 +2,15 @@ const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
 const {
-  AuditableObjectFields
+  AuditableObjectFields,
 } = require("./extended_types/auditableGraphQLObjectType");
 
 // MongoDB model imports
 const departmentModel = require("../models/departmentModel").Department;
-const deptManagerModel = require("../models/deptManagerModel").DeptManager;
 
-// GraphQL type imports
-//const deptManagerType = require("./deptManagerType");
-//const deptManagerType = require("./deptManagerType");
+// Validator imports
+const CantRepeatName = require("../validators/departmentType.validator").CantRepeatName;
+const CantDeleteConnectedDepartment = require("../validators/departmentType.validator").CantDeleteConnectedDepartment;
 
 // GraphQL library imports
 const {
@@ -32,12 +31,18 @@ const { GraphQLDate } = gqlDate;
 const departmentType = new GraphQLObjectType({
   name: "Department",
   description: "Represents a department",
-  fields:() =>Object.assign(AuditableObjectFields,{
-    id: { type: GraphQLNonNull(GraphQLID) },
-    name: { type: GraphQLNonNull(GraphQLString) },
-  }),
+  extensions: {
+    validations: {
+      CREATE: [CantRepeatName],
+      DELETE: [CantDeleteConnectedDepartment],
+    },
+  },
+  fields: () => ({
+      id: { type: GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLNonNull(GraphQLString) },
+    }),
 });
 
-gnx.connect(departmentModel, departmentType, "department", "departments");
+gnx.connect(departmentModel, departmentType, "Department", "Departments");
 
 module.exports = departmentType;
