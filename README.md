@@ -26,13 +26,13 @@ Needed:
 
 ### To run this code
 * Start mongobd with replica sets automagicly
-  >run-rs  
+  >run-rs or npm run mongo_init 
 
   *or, in case run-rs is not on the path*  
-  >./node_modules/.bin/run-rs
+  >./node_modules/.bin/run-rs or npm run mongo_init
 
 * Start node app
   >npm run dev
 
 * To test GraphQl queries through GraphiQl access
-  >localhost:3000/graphql
+  >localhost:3000/graphql or npm run mongo_explorer

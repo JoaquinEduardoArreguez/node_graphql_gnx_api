@@ -13,28 +13,20 @@ const CantBeTwoEmployeesInSameDepartmentAtSameTime = {
     });
     // Si son del mismo departamento y distintos empleados
 
-    console.log("INSIDE");
-
-    deptEmployeeFound.forEach(deptEmployeeElem => {
-
+    deptEmployeeFound.forEach((deptEmployeeElem) => {
+      if (
+        deptEmployeeElem &&
+        deptEmployeeElem.employee_id != materializedObject.employee_id
+      ) {
+        // Las fechas no tienen que ser iguales ni estar contenidas
         if (
-            deptEmployeeElem &&
-            deptEmployeeElem.employee_id != materializedObject.employee_id
-          ) {
-            console.log("NOT THE SAME EMPLOYEE");
-      
-            // Las fechas no tienen que ser iguales ni estar contenidas
-            if (
-              materializedObject.from_date >= deptEmployeeElem.from_date &&
-              materializedObject.to_date <= deptEmployeeElem.to_date
-            ) {
-              throw new CantBeTwoEmployeesInSameDepartmentAtSameTimeError(typeName);
-            }
-          }
-        
+          materializedObject.from_date >= deptEmployeeElem.from_date &&
+          materializedObject.to_date <= deptEmployeeElem.to_date
+        ) {
+          throw new CantBeTwoEmployeesInSameDepartmentAtSameTimeError(typeName);
+        }
+      }
     });
-
-    
   },
 };
 

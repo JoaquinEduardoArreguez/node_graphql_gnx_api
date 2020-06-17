@@ -13,15 +13,11 @@ const CantBeTwoDeptManagersInSameDepartmentAtSameTime = {
     });
     // Si son del mismo departamento y distintos manager
 
-    //console.log("INSIDE");
-
     deptManagerFound.forEach((deptEmployeeElem) => {
       if (
         deptEmployeeElem &&
         deptEmployeeElem.employee_id != materializedObject.employee_id
       ) {
-        //console.log("NOT THE SAME MANAGER");
-
         // Las fechas no tienen que ser iguales ni estar contenidas
         if (
           materializedObject.from_date >= deptEmployeeElem.from_date &&
