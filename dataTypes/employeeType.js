@@ -14,7 +14,8 @@ const employeeModel = require("../models/employeeModel").Employee;
 // Validators
 const {
   CheckEmployeeHasLegalAge,
-  EmployeeHasConnections
+  EmployeeHasConnections,
+  DNIAlreadyInUse,
 } = require("../validators/employeeType.validator");
 
 // GraphQL library imports
@@ -39,8 +40,8 @@ const employeeType = new GraphQLObjectType({
   description: "Represents an employee",
   extensions: {
     validations: {
-      CREATE: [CheckEmployeeHasLegalAge],
-      DELETE: [EmployeeHasConnections]
+      CREATE: [CheckEmployeeHasLegalAge, DNIAlreadyInUse],
+      DELETE: [EmployeeHasConnections],
     },
   },
   fields: () =>

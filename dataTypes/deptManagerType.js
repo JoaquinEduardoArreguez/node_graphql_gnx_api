@@ -14,6 +14,11 @@ const employeeModel = require("../models/employeeModel").Employee;
 const departmentType = require("./departmentType");
 const employeeType = require("./employeeType");
 
+// Validators
+const {
+  CheckCoherentDates
+} = require("../validators/dates.validator");
+
 // GraphQL library imports
 const {
   GraphQLString,
@@ -33,6 +38,14 @@ const { GraphQLDate } = gqlDate;
 const deptManagerType = new GraphQLObjectType({
   name: "DepartmentManager",
   description: "Represents a department manager",
+
+  extensions: {
+    validations: {
+      CREATE: [CheckCoherentDates],
+    },
+  },
+
+
   fields:() =>Object.assign({
     id: { type: GraphQLNonNull(GraphQLID) },
     employee_id: { type: GraphQLNonNull(GraphQLID) },

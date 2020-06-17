@@ -9,8 +9,10 @@ const {
 const departmentModel = require("../models/departmentModel").Department;
 
 // Validator imports
-const CantRepeatName = require("../validators/departmentType.validator").CantRepeatName;
-const CantDeleteConnectedDepartment = require("../validators/departmentType.validator").CantDeleteConnectedDepartment;
+const {
+  CantDeleteConnectedDepartment,
+  CantRepeatName,
+} = require("../validators/departmentType.validator");
 
 // GraphQL library imports
 const {
@@ -37,10 +39,14 @@ const departmentType = new GraphQLObjectType({
       DELETE: [CantDeleteConnectedDepartment],
     },
   },
-  fields: () => Object.assign({
-      id: { type: GraphQLNonNull(GraphQLID) },
-      name: { type: GraphQLNonNull(GraphQLString) },
-    },AuditableObjectFields),
+  fields: () =>
+    Object.assign(
+      {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLNonNull(GraphQLString) },
+      },
+      AuditableObjectFields
+    ),
 });
 
 gnx.connect(departmentModel, departmentType, "Department", "Departments");
