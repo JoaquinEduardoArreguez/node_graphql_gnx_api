@@ -11,6 +11,12 @@ const employeeModel = require("../models/employeeModel").Employee;
 
 // GraphQL type imports
 
+// Validators
+const {
+  CheckEmployeeHasLegalAge,
+  EmployeeHasConnections
+} = require("../validators/employeeType.validator");
+
 // GraphQL library imports
 const {
   GraphQLString,
@@ -31,6 +37,12 @@ const { GraphQLDate } = gqlDate;
 const employeeType = new GraphQLObjectType({
   name: "Employee",
   description: "Represents an employee",
+  extensions: {
+    validations: {
+      CREATE: [CheckEmployeeHasLegalAge],
+      DELETE: [EmployeeHasConnections]
+    },
+  },
   fields: () =>
     Object.assign(
       {
