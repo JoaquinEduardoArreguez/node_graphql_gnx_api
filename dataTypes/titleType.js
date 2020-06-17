@@ -31,7 +31,7 @@ const { GraphQLDate } = gqlDate;
 const titleType = new GraphQLObjectType({
   name: "Title",
   description: "Represents an employee title",
-  fields:() =>Object.assign(AuditableObjectFields,{
+  fields:() =>Object.assign({
     id: { type: GraphQLNonNull(GraphQLID) },
     employee_id: { type: GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLNonNull(GraphQLString) },
@@ -51,7 +51,7 @@ const titleType = new GraphQLObjectType({
       },
     },
 
-  }),
+  },AuditableObjectFields),
 });
 
 gnx.connect(titleModel,titleType,"title","titles");

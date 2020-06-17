@@ -2,7 +2,7 @@ const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
 const {
-  AuditableObjectFields
+  AuditableObjectFields,
 } = require("./extended_types/auditableGraphQLObjectType");
 
 // MongoDB model imports
@@ -34,39 +34,42 @@ const deptEmployeeType = new GraphQLObjectType({
   description: "Represents a department employee",
 
   fields: () =>
-    Object.assign(AuditableObjectFields,{
-      id: { type: GraphQLNonNull(GraphQLID) },
-      employee_id: { type: GraphQLNonNull(GraphQLID) },
-      department_id: { type: GraphQLNonNull(GraphQLID) },
-      from_date: { type: GraphQLNonNull(GraphQLDate) },
-      to_date: { type: GraphQLNonNull(GraphQLDate) },
+    Object.assign(
+      {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        employee_id: { type: GraphQLNonNull(GraphQLID) },
+        department_id: { type: GraphQLNonNull(GraphQLID) },
+        from_date: { type: GraphQLNonNull(GraphQLDate) },
+        to_date: { type: GraphQLNonNull(GraphQLDate) },
 
-      employee: {
-        type: employeeType,
-        extensions: {
-          relation: {
-            connectionField: "employee_id",
-            embedded: false,
+        employee: {
+          type: employeeType,
+          extensions: {
+            relation: {
+              connectionField: "employee_id",
+              embedded: false,
+            },
+          },
+          resolve(parent, args) {
+            return gnx.getModel(employeeType).findById(parent.employee_id);
           },
         },
-        resolve(parent, args) {
-          return gnx.getModel(employeeType).findById(parent.employee_id);
-        },
-      },
 
-      department: {
-        type: departmentType,
-        extensions: {
-          relation: {
-            connectionField: "department_id",
-            embedded: false,
+        department: {
+          type: departmentType,
+          extensions: {
+            relation: {
+              connectionField: "department_id",
+              embedded: false,
+            },
+          },
+          resolve(parent, args) {
+            return gnx.getModel(departmentType).findById(parent.department_id);
           },
         },
-        resolve(parent, args) {
-          return gnx.getModel(departmentType).findById(parent.department_id);
-        },
       },
-    }),
+      AuditableObjectFields
+    ),
 });
 
 gnx.connect(

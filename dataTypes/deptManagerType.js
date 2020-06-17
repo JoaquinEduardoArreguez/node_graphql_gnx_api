@@ -33,7 +33,7 @@ const { GraphQLDate } = gqlDate;
 const deptManagerType = new GraphQLObjectType({
   name: "DepartmentManager",
   description: "Represents a department manager",
-  fields:() =>Object.assign(AuditableObjectFields,{
+  fields:() =>Object.assign({
     id: { type: GraphQLNonNull(GraphQLID) },
     employee_id: { type: GraphQLNonNull(GraphQLID) },
     department_id: { type: GraphQLNonNull(GraphQLID) },
@@ -65,7 +65,7 @@ const deptManagerType = new GraphQLObjectType({
         return departmentModel.findById(parent.department_id);
       },
     },
-  }),
+  },AuditableObjectFields),
 });
 
 gnx.connect(

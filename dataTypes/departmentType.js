@@ -37,10 +37,10 @@ const departmentType = new GraphQLObjectType({
       DELETE: [CantDeleteConnectedDepartment],
     },
   },
-  fields: () => ({
+  fields: () => Object.assign({
       id: { type: GraphQLNonNull(GraphQLID) },
       name: { type: GraphQLNonNull(GraphQLString) },
-    }),
+    },AuditableObjectFields),
 });
 
 gnx.connect(departmentModel, departmentType, "Department", "Departments");

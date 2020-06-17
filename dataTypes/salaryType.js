@@ -31,7 +31,7 @@ const { GraphQLDate } = gqlDate;
 const salaryType = new GraphQLObjectType({
   name: "Salary",
   description: "Represents a salary",
-  fields:() =>Object.assign(AuditableObjectFields,{
+  fields:() =>Object.assign({
     id: { type: GraphQLNonNull(GraphQLID) },
     employee_id: { type: GraphQLNonNull(GraphQLID) },
     salary: { type: GraphQLNonNull(GraphQLInt) },
@@ -51,7 +51,7 @@ const salaryType = new GraphQLObjectType({
       },
     },
 
-  }),
+  },AuditableObjectFields),
 });
 
 gnx.connect(salaryModel, salaryType, "salary", "salaries");
