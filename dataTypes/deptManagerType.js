@@ -2,7 +2,7 @@ const graphql = require("graphql");
 const gnx = require("@simtlix/gnx");
 const gqlDate = require("graphql-iso-date");
 const {
-  AuditableObjectFields
+  AuditableObjectFields,
 } = require("./extended_types/auditableGraphQLObjectType");
 
 // MongoDB model imports
@@ -15,9 +15,11 @@ const departmentType = require("./departmentType");
 const employeeType = require("./employeeType");
 
 // Validators
+const { CheckCoherentDates } = require("../validators/dates.validator");
+
 const {
-  CheckCoherentDates
-} = require("../validators/dates.validator");
+  CantBeTwoDeptManagersInSameDepartmentAtSameTime,
+} = require("../validators/deptManagerType.validator");
 
 // GraphQL library imports
 const {
@@ -41,44 +43,50 @@ const deptManagerType = new GraphQLObjectType({
 
   extensions: {
     validations: {
-      CREATE: [CheckCoherentDates],
+      CREATE: [
+        CheckCoherentDates,
+        CantBeTwoDeptManagersInSameDepartmentAtSameTime,
+      ],
     },
   },
 
+  fields: () =>
+    Object.assign(
+      {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        employee_id: { type: GraphQLNonNull(GraphQLID) },
+        department_id: { type: GraphQLNonNull(GraphQLID) },
+        from_date: { type: GraphQLNonNull(GraphQLDate) },
+        to_date: { type: GraphQLNonNull(GraphQLDate) },
 
-  fields:() =>Object.assign({
-    id: { type: GraphQLNonNull(GraphQLID) },
-    employee_id: { type: GraphQLNonNull(GraphQLID) },
-    department_id: { type: GraphQLNonNull(GraphQLID) },
-    from_date: { type: GraphQLNonNull(GraphQLDate) },
-    to_date: { type: GraphQLNonNull(GraphQLDate) },
+        employee: {
+          type: employeeType,
+          extensions: {
+            relation: {
+              connectionField: "employee_id",
+              embedded: false,
+            },
+          },
+          resolve(parent, args) {
+            return employeeModel.findById(parent.employee_id);
+          },
+        },
 
-    employee: {
-      type: employeeType,
-      extensions: {
-        relation: {
-          connectionField: "employee_id",
-          embedded: false,
+        department: {
+          type: departmentType,
+          extensions: {
+            relation: {
+              connectionField: "department_id",
+              embedded: false,
+            },
+          },
+          resolve(parent, args) {
+            return departmentModel.findById(parent.department_id);
+          },
         },
       },
-      resolve(parent, args) {
-        return employeeModel.findById(parent.employee_id);
-      },
-    },
-
-    department: {
-      type: departmentType,
-      extensions: {
-        relation: {
-          connectionField: "department_id",
-          embedded: false,
-        },
-      },
-      resolve(parent, args) {
-        return departmentModel.findById(parent.department_id);
-      },
-    },
-  },AuditableObjectFields),
+      AuditableObjectFields
+    ),
 });
 
 gnx.connect(
