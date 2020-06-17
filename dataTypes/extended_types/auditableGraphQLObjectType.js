@@ -1,8 +1,6 @@
 const graphql = require("graphql");
 const graphqlIsoDate = require("graphql-iso-date");
 
-const { GraphQLObjectType, GraphQLBoolean, GraphQLString } = graphql;
-
 const { GraphQLDateTime } = graphqlIsoDate;
 
 const AuditableObjectFields = {

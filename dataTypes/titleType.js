@@ -17,14 +17,7 @@ const { CheckCoherentDates } = require("../validators/dates.validator");
 const { EmployeeRepeatsTitle } = require("../validators/titleType.validator");
 
 // GraphQL library imports
-const {
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLID,
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLInt,
-} = graphql;
+const { GraphQLString, GraphQLNonNull, GraphQLID, GraphQLObjectType } = graphql;
 
 const { GraphQLDate } = gqlDate;
 

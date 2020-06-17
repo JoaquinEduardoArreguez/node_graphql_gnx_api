@@ -22,14 +22,7 @@ const {
 } = require("../validators/deptManagerType.validator");
 
 // GraphQL library imports
-const {
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLID,
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLInt,
-} = graphql;
+const { GraphQLNonNull, GraphQLID, GraphQLObjectType } = graphql;
 
 const { GraphQLDate } = gqlDate;
 

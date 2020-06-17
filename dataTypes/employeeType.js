@@ -24,7 +24,6 @@ const {
   GraphQLNonNull,
   GraphQLID,
   GraphQLObjectType,
-  GraphQLList,
   GraphQLInt,
 } = graphql;
 
