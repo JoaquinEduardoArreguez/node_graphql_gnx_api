@@ -11,13 +11,9 @@ const titleModel = require("../models/titleModel").Title;
  */
 const EmployeeRepeatsTitle = {
   validate: async function (typeName, originalObject, materializedObject) {
-    console.log("INSIDE");
-
     const employeeTitles = await titleModel.find({
       employee_id: materializedObject.employee_id,
     });
-
-    console.log(employeeTitles);
 
     employeeTitles.forEach((title) => {
       if (title.title == materializedObject.title) {

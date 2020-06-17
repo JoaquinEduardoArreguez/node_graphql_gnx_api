@@ -10,19 +10,6 @@ const departmentManagerModel = require("../models/deptManagerModel")
   .DeptManager;
 
 /**
- * 1 - Can't exist more than one employee with the same dni
-2 - Employee must have more than 18 years old
-3 - In all the collections from_date must be smaller than to_date
-4 - The same employee cannot have 2 titles with the same dept_name
-5 - Gender must be implemented as Enum
-6 - Cant't be 2 departments with the same dept_name
-7 - Can't be 2 employees assigned to the same department in the same portion of time
-8 - Can't be 2 managers assigned to the same department in the same portion of time
-9 - Can't delete a child from a relation 
-
- */
-
-/**
  * 6 - Cant't be 2 departments with the same dept_name
  */
 const CantRepeatName = {

@@ -13,9 +13,10 @@ const employeeType = require("./employeeType");
 const departmentType = require("./departmentType");
 
 // Validators
+const { CheckCoherentDates } = require("../validators/dates.validator");
 const {
-  CheckCoherentDates
-} = require("../validators/dates.validator");
+  CantBeTwoEmployeesInSameDepartmentAtSameTime,
+} = require("../validators/deptEmployeeType.validator");
 
 // GraphQL library imports
 const {
@@ -40,7 +41,10 @@ const deptEmployeeType = new GraphQLObjectType({
 
   extensions: {
     validations: {
-      CREATE: [CheckCoherentDates],
+      CREATE: [
+        CheckCoherentDates,
+        CantBeTwoEmployeesInSameDepartmentAtSameTime,
+      ],
     },
   },
 
