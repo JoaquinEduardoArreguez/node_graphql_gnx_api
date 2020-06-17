@@ -3,7 +3,6 @@ const GNXError = gnx.GNXError;
 
 // Model imports
 const titleModel = require("../models/titleModel").Title;
-//const employeeModel = require("../models/employeeModel").Employee;
 
 /**
  * 4 - The same employee cannot have 2 titles with the same dept_name
