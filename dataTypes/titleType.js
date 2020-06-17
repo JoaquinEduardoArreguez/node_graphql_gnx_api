@@ -16,6 +16,7 @@ const employeeType = require("./employeeType");
 const {
   CheckCoherentDates
 } = require("../validators/dates.validator");
+const{EmployeeRepeatsTitle}=require("../validators/titleType.validator");
 
 // GraphQL library imports
 const {
@@ -39,7 +40,7 @@ const titleType = new GraphQLObjectType({
 
   extensions: {
     validations: {
-      CREATE: [CheckCoherentDates],
+      CREATE: [CheckCoherentDates,EmployeeRepeatsTitle],
     },
   },
   
